@@ -6,6 +6,7 @@ import com.reliaquest.api.dto.EmployeeListResponseDTO;
 import com.reliaquest.api.service.EmployeeService;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +31,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 webClient.get().uri("/employees").retrieve().bodyToMono(EmployeeListResponseDTO.class);
 
         logger.debug("EmployeeService|getAllEmployeeList|Exit");
-        return employeeMono.block().getData();
+        return Objects.requireNonNull(employeeMono.block()).getData();
     }
 
     @Override
@@ -42,7 +43,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         logger.debug("EmployeeService|getEmployeeById|Exit");
 
-        return employeeMono.block().getData();
+        return Objects.requireNonNull(employeeMono.block()).getData();
     }
 
     @Override
@@ -66,7 +67,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         logger.debug("EmployeeService|getHighestSalaryOfEmployee|Exit");
 
         return employeeList.stream()
-                .map(emp -> emp.getEmployeeSalary())
+                .map(Employee::getEmployeeSalary)
                 .mapToInt(Integer::parseInt)
                 .max()
                 .getAsInt();

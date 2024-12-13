@@ -2,7 +2,6 @@ package com.reliaquest.api.controller;
 
 import com.reliaquest.api.dto.Employee;
 import com.reliaquest.api.service.impl.EmployeeServiceImpl;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -106,7 +105,7 @@ public class EmployeeController implements IEmployeeController {
     }
 
     @Override
-    public ResponseEntity createEmployee(Object employeeInput) {
+    public ResponseEntity<Object> createEmployee(Object employeeInput) {
         return null;
     }
 
