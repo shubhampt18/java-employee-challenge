@@ -27,6 +27,9 @@ public interface IEmployeeController {
     @GetMapping("/{id}")
     ResponseEntity<Employee> getEmployeeById(@PathVariable String id);
 
+    @GetMapping("/{employee_name}")
+    ResponseEntity<Employee> getEmployeeByName(@PathVariable String employee_name);
+
     @GetMapping("/highestSalary")
     ResponseEntity<Integer> getHighestSalaryOfEmployees();
 
@@ -38,4 +41,7 @@ public interface IEmployeeController {
 
     @DeleteMapping("/{id}")
     ResponseEntity<String> deleteEmployeeById(@PathVariable String id);
+
+    @DeleteMapping("/{employee_name}")
+    ResponseEntity<String> deleteEmployeeByName(@PathVariable String employee_name);
 }

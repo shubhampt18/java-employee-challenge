@@ -58,6 +58,14 @@ public class EmployeeService implements IEmployeeService {
         return responseEntity.getBody().getData();
     }
 
+    public Employee getEmployeeByName(String employee_name) {
+        ResponseEntity<EmployeeResponse> responseEntity =
+                restTemplate.exchange(Constants.GET_EMPLOYEE_NAME_URL, HttpMethod.GET, null, EmployeeResponse.class, employee_name);
+
+        log.info("Response of Request :{} ", responseEntity.getBody().getData());
+        return responseEntity.getBody().getData();
+    }
+
     public Integer getHighestSalaryOfEmployees() {
         List<Employee> employeeList = null;
         try {
@@ -109,6 +117,18 @@ public class EmployeeService implements IEmployeeService {
 
         ResponseEntity<EmployeeResponse> employeeResponseResponseEntity = restTemplate.exchange(
                 Constants.DELETE_EMPLOYEE_URL, HttpMethod.DELETE, null, EmployeeResponse.class, id);
+
+        if (employeeResponseResponseEntity.getStatusCode() == HttpStatus.OK) return employee.getEmployee_name();
+
+        return "Employee does not exist";
+    }
+
+    public String deleteEmployeeByName(String employee_name) {
+
+        Employee employee = getEmployeeByName(employee_name);
+
+        ResponseEntity<EmployeeResponse> employeeResponseResponseEntity = restTemplate.exchange(
+                Constants.DELETE_EMPLOYEE_URL, HttpMethod.DELETE, null, EmployeeResponse.class, employee_name);
 
         if (employeeResponseResponseEntity.getStatusCode() == HttpStatus.OK) return employee.getEmployee_name();
 

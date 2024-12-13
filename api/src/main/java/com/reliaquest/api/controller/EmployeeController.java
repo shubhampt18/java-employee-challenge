@@ -38,6 +38,11 @@ public class EmployeeController implements IEmployeeController {
     }
 
     @Override
+    public ResponseEntity<Employee> getEmployeeByName(@PathVariable String employee_name) {
+        return new ResponseEntity<>(employeeService.getEmployeeByName(employee_name), HttpStatus.OK);
+    }
+
+    @Override
     public ResponseEntity<Integer> getHighestSalaryOfEmployees() {
         return new ResponseEntity<>(employeeService.getHighestSalaryOfEmployees(), HttpStatus.OK);
     }
@@ -59,5 +64,10 @@ public class EmployeeController implements IEmployeeController {
     @Override
     public ResponseEntity<String> deleteEmployeeById(@PathVariable String id) {
         return new ResponseEntity<>(employeeService.deleteEmployee(id), HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<String> deleteEmployeeByName(@PathVariable String employee_name) {
+        return new ResponseEntity<>(employeeService.deleteEmployeeByName(employee_name), HttpStatus.OK);
     }
 }
